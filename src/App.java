@@ -57,17 +57,38 @@ public class App {
                     System.out.println("Você adicionou " + listaCompras.size() + " itens a sua lista de compra.");
                     System.out.println("Gostaria de ver os itens que você adicionou?(S/N)");
                     String resp2 = leitor.nextLine().toLowerCase();
-                    if(resp2.equals("s") || resp2.equals("sim")){
+                    if(resp2.equalsIgnoreCase("s") || resp2.equalsIgnoreCase("sim")){
                         verificandoItens(resp2, leitor, listaCompras);
                     }
                     break;
                 case 2:
-                    System.out.println("Aqui você vai editar sua lista");
+                    System.out.println("Aqui você vai visualizar/ler sua lista");
                     Thread.sleep(3000);
                     break;
 
                 case 3:
                     System.out.println("Aqui você vai excluir a lista ou itens da lista");
+                    Thread.sleep(3000);
+                    String parandolooping = "s";
+                    while(!parandolooping.equalsIgnoreCase("n") && !parandolooping.equalsIgnoreCase("nao")){
+                        if(listaCompras.isEmpty()){
+                            System.out.println("A lista está vazia... Não há item para ser removido");
+                            Thread.sleep(3000);
+                            limpaTela();
+                            break;
+                        } else{
+                            listaCompras = removendoItem(listaCompras, leitor);
+                        }
+                        
+                        System.out.println("Esses são os itens que estão presentes na sua lista atualmente: ");
+                        for(String verificando : listaCompras){
+                            System.out.println(verificando);
+                        }
+
+                        System.out.println("Gostaria de remover mais algum item da sua lista de compra? ");
+                        parandolooping = leitor.nextLine();
+                    }
+                    System.out.println("Retornando ao menu...");
                     Thread.sleep(3000);
                     break;
                 case 4:
@@ -135,6 +156,34 @@ public class App {
         int opcao = leitor.nextInt();
         leitor.nextLine(); // limpa o enter
         return opcao;
+    }
+
+
+    public static ArrayList<String> removendoItem(ArrayList<String> listaCompra, Scanner leitor) throws Exception{
+        for (int i = 0; i < listaCompra.size(); i++) {
+            System.out.println((i+1) + " - " + listaCompra.get(i));
+        }
+                            
+        System.out.println("Digite o número do item que deseja remover: ");
+        System.out.print("R: ");
+        int indice = leitor.nextInt();
+        leitor.nextLine();
+        if(indice > 0 && indice <= listaCompra.size()){
+            listaCompra.remove(indice - 1);
+            System.out.println("Item removido com sucesso!");
+            Thread.sleep(3000);
+        } else {
+            System.out.println("Índice inválido!");
+            Thread.sleep(3000);
+        }
+
+        System.out.println("Essa é sua lista de compra atual: ");
+        for(String verificando : listaCompra){
+            System.out.println(verificando);
+        }
+        Thread.sleep(3000);
+
+        return listaCompra;
     }
 
 }
