@@ -63,6 +63,7 @@ public class App {
                     break;
                 case 2:
                     System.out.println("Aqui você vai visualizar/ler sua lista");
+                    visualizandoLista(listaCompras);
                     Thread.sleep(3000);
                     break;
 
@@ -149,7 +150,7 @@ public class App {
         limpaTela();
         System.out.println("O que deseja fazer?");
         System.out.println("Digite 1 para criar a lista");
-        System.out.println("Digite 2 para editar uma lista existente");
+        System.out.println("Digite 2 para visualizar uma lista existente");
         System.out.println("Digite 3 para deletar item de lista ou uma lista");
         System.out.println("Digite 4 para sair");
         System.out.print("R: ");
@@ -177,13 +178,20 @@ public class App {
             Thread.sleep(3000);
         }
 
-        System.out.println("Essa é sua lista de compra atual: ");
-        for(String verificando : listaCompra){
-            System.out.println(verificando);
-        }
-        Thread.sleep(3000);
-
         return listaCompra;
+    }
+
+    public static void visualizandoLista(ArrayList<String> listaCompra) throws Exception{
+        if (listaCompra.isEmpty()) {
+            System.out.println("Lista de compras está vazia");
+        } else {
+            System.out.println("Essa é sua lista de compra atual: ");
+            for(String verificando : listaCompra){
+                System.out.println(verificando);
+            }
+            Thread.sleep(3000);
+        }
+        
     }
 
 }
